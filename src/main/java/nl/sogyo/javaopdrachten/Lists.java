@@ -29,9 +29,12 @@ public class Lists {
         int n = 2;
         int[] lowestTwo = getNLowest(randomList, n);
         System.out.printf("The lowest %d numbers: \n", n);
+        int sum = 0;
         for (int i = 0; i < n; i++) {
             System.out.println(lowestTwo[i]);
+            sum += lowestTwo[i];
         }
+        System.out.printf("The sum of the lowest %d numbers is: %d\n", n, sum);
     }
 
     public static int getMax(int[] array){
