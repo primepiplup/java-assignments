@@ -52,9 +52,11 @@ public class Lists {
         }
     }
 
+
     public static boolean isEven(int number){
         return number % 2 == 0;
     }
+
 
     public static int getMax(int[] array){
         int max = 0;
@@ -63,6 +65,7 @@ public class Lists {
         }
         return max;
     }
+
 
     public static void bubbleSort(int[] array){
         /* implementation of bubblesort as understood from wikipedia:
@@ -81,15 +84,18 @@ public class Lists {
         }
     }
 
+
     public static void swap(int[] array, int posA, int posB) {
         int store = array[posA];
         array[posA] = array[posB];
         array[posB] = store;
     }
 
+
     public static int[] getNLowest(int[] array, int n) {
         /*get the n lowest numbers out of an array, in order of size 
          *assumes that n < array.length otherwise WILL crash
+         *This is essentially a sorting algorithm probably also O=n^2
          */
 
         int[] lowestArray = new int[n]; //store lowest values
@@ -113,6 +119,7 @@ public class Lists {
 
         return lowestArray;
     }
+
 
     public static void shove(int[] array, int pos){
         /*shift all elements of the array right one position from pos
