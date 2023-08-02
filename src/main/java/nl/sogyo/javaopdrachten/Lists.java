@@ -1,6 +1,7 @@
 package nl.sogyo.javaopdrachten;
 
 import java.util.random.*;
+import java.util.ArrayList;
 
 public class Lists {
     public static void main(String[] args) {
@@ -44,8 +45,19 @@ public class Lists {
             }
         }
 
+        //print split arrays for divisible by 2, 3, 5 and the rest
+        int[] divisibleByTwo = getDivisibleBy(randomList, 2);
+        int[] divisibleByThree = getDivisibleBy(randomList, 3);
+        int[] divisibleByFive = getDivisibleBy(randomList, 5);
+        System.out.println("Divisible by two:");
+        printArray(divisibleByTwo);
+        System.out.println("Divisible by three:");
+        printArray(divisibleByThree);
+        System.out.println("Divisible by five:");
+        printArray(divisibleByFive);
+
         //print list sorted by bubblesort
-        bubbleSort(randomList);
+        bubbleSort(randomList);  //sort in-place
         System.out.println("Bubblesorted list: ");
         for(int i = 0; i < randomList.length; i++) {
             System.out.println(randomList[i]);
@@ -58,12 +70,42 @@ public class Lists {
     }
 
 
+    public static void printArray(int[] array) {
+        for(int i = 0; i < array.length; i++) {
+            System.out.println(array[i]);
+        }
+    }
+
+
     public static int getMax(int[] array){
         int max = 0;
         for(int i = 0; i < array.length; i++){
             if(array[i] > max) {max = array[i];}
         }
         return max;
+    }
+
+
+    public static int[] getDivisibleBy(int[] array, int divider) {
+        /* generalized function to return a list of numbers divisible
+         * by some given number without a remainder
+         */
+        //count number of divisible numbers for correct array size
+        int count = 0;
+        for(int i = 0; i < array.length; i++) {
+            if(array[i] % divider == 0){ count++; }
+        }
+
+        //create array and populate with the counted numbers
+        int[] accumulator = new int[count];
+        for(int i = 0; i < array.length; i++) {
+            if(array[i] % divider == 0){ 
+                count--;
+                accumulator[count] = array[i];
+            }
+        }
+
+        return accumulator;
     }
 
 
