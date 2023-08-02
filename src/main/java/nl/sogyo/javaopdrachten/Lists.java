@@ -35,6 +35,18 @@ public class Lists {
             sum += lowestTwo[i];
         }
         System.out.printf("The sum of the lowest %d numbers is: %d\n", n, sum);
+
+        //print all even numbers
+        System.out.println("All even numbers:");
+        for(int i = 0; i < randomList.length; i++){
+            if(isEven(randomList[i])){
+                System.out.println(randomList[i]);
+            }
+        }
+    }
+
+    public static boolean isEven(int number){
+        return number % 2 == 0;
     }
 
     public static int getMax(int[] array){
