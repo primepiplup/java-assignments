@@ -1,7 +1,6 @@
 package nl.sogyo.javaopdrachten;
 
 import java.util.random.*;
-import java.util.ArrayList;
 
 public class Lists {
     public static void main(String[] args) {
@@ -49,12 +48,15 @@ public class Lists {
         int[] divisibleByTwo = getDivisibleBy(randomList, 2);
         int[] divisibleByThree = getDivisibleBy(randomList, 3);
         int[] divisibleByFive = getDivisibleBy(randomList, 5);
+        int[] nonDivisible = getNondivisible(randomList);
         System.out.println("Divisible by two:");
         printArray(divisibleByTwo);
         System.out.println("Divisible by three:");
         printArray(divisibleByThree);
         System.out.println("Divisible by five:");
         printArray(divisibleByFive);
+        System.out.println("Remaining numbers:");
+        printArray(nonDivisible);
 
         //print list sorted by bubblesort
         bubbleSort(randomList);  //sort in-place
@@ -100,6 +102,30 @@ public class Lists {
         int[] accumulator = new int[count];
         for(int i = 0; i < array.length; i++) {
             if(array[i] % divider == 0){ 
+                count--;
+                accumulator[count] = array[i];
+            }
+        }
+
+        return accumulator;
+    }
+
+
+    public static int[] getNondivisible(int[] array) {
+        /* quick solution to finding numbers that are not divisible by 2, 3, 5 
+         * preferred solution vs checking the random array against all the generated
+         * arrays
+         */
+        //count number of divisible numbers for correct array size
+        int count = 0;
+        for(int i = 0; i < array.length; i++) {
+            if(array[i] % 2 != 0 && array[i] % 3 != 0 && array[i] % 5 != 0){ count++; }
+        }
+
+        //create array and populate with the counted numbers
+        int[] accumulator = new int[count];
+        for(int i = 0; i < array.length; i++) {
+            if(array[i] % 2 != 0 && array[i] % 3 != 0 && array[i] % 5 != 0){
                 count--;
                 accumulator[count] = array[i];
             }
