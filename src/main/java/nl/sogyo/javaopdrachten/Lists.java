@@ -43,6 +43,13 @@ public class Lists {
                 System.out.println(randomList[i]);
             }
         }
+
+        //print list sorted by bubblesort
+        bubbleSort(randomList);
+        System.out.println("Bubblesorted list: ");
+        for(int i = 0; i < randomList.length; i++) {
+            System.out.println(randomList[i]);
+        }
     }
 
     public static boolean isEven(int number){
@@ -55,6 +62,29 @@ public class Lists {
             if(array[i] > max) {max = array[i];}
         }
         return max;
+    }
+
+    public static void bubbleSort(int[] array){
+        /* implementation of bubblesort as understood from wikipedia:
+         * https://nl.wikipedia.org/wiki/Bubblesort
+         */
+        int endPoint = array.length;
+        //The endpoint keeps shifting left as large numbers bubble 'up'
+        while(endPoint > 1) {
+            for(int i = 0; i < endPoint - 1; i++) {
+                //if left value is greater than right value, swap the two values
+                if(array[i] > array[i + 1]){
+                    swap(array, i, i + 1);
+                }
+            }
+            endPoint--;
+        }
+    }
+
+    public static void swap(int[] array, int posA, int posB) {
+        int store = array[posA];
+        array[posA] = array[posB];
+        array[posB] = store;
     }
 
     public static int[] getNLowest(int[] array, int n) {
