@@ -77,6 +77,14 @@ public class GuessWord {
     }
 
 
+    public boolean isCompleted() {
+        for(int i = 0; i < correctCharacters.length; i++) {
+            if(isNotSet(correctCharacters[i])) { return false; }
+        }
+        return true;
+    }
+
+
     private void setCorrectLetter(char guessedLetter, int position) {
         correctCharacters[position] = guessedLetter;
     }
