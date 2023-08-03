@@ -1,6 +1,7 @@
 package nl.sogyo.javaopdrachten;
 
 import java.util.ArrayList;
+import java.util.random.*;
 
 public class GuessWord {
     
@@ -8,6 +9,23 @@ public class GuessWord {
     private char[] correctCharacters;
     private ArrayList<Character> incorrectCharacters;
 
+    private String[] possibleWords = {
+        "Hangman",
+        "Jazz",
+        "apple",
+        "Computer",
+        "Camel",
+        "glowworm",
+        "xylophone",
+        "stronghold",
+        "beekeeper",
+        "awkward",
+        "quiz",
+        "awesome",
+        "surprising",
+        "wolf",
+        "elephant"
+    };
 
     public GuessWord() {
         setWordToGuess();
@@ -17,12 +35,15 @@ public class GuessWord {
 
     private void setWordToGuess() {
         String guessWord = getWordToGuess();
+        guessWord = guessWord.toUpperCase();
         wordToGuess = guessWord.toCharArray();
     }
 
 
     private String getWordToGuess() { 
-        return "HANGMAN"; //default for now, may randomize?
+        RandomGenerator random = RandomGenerator.getDefault();
+        int possibleWordSelection = random.nextInt(0, possibleWords.length);
+        return possibleWords[possibleWordSelection];
     }
 
 
