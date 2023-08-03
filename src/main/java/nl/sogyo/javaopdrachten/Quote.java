@@ -12,16 +12,27 @@ public class Quote {
 
     public static void main(String[] args) {
         for(int i = 0; i < quotes.length; i++) {
-            String testQuote = getQuoteAtIndex(i);
-            System.out.println(testQuote);
-            testQuote = fixCapitalAndPunctuation(testQuote);
-            System.out.println(testQuote);
+            printQuoteAtIndex(i);
+            System.out.println();
         }
+    }
+
+
+    public static void printQuoteAtIndex(int index) {
+        String quote = getQuoteAtIndex(index);
+        quote = fixCapitalAndPunctuation(quote);
+        quote = surroundWithQuotes(quote);
+        System.out.print(quote);
     }
 
 
     private static String getQuoteAtIndex(int index) {
         return quotes[index][1];
+    }
+
+
+    public static String surroundWithQuotes(String quote) {
+        return '"' + quote + '"';
     }
 
 
