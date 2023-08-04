@@ -6,5 +6,7 @@ public class RoboRally {
         robotOne.printState();
         robotOne.turnLeft();
         robotOne.printState();
+        robotOne.forward();
+        robotOne.printState();
     }
 }

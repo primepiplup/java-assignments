@@ -31,11 +31,6 @@ public class Point {
         }
     }
 
-    public void moveDistanceInDirection(Direction direction) {
-        int defaultMoveDistance = 1;
-        moveDistanceInDirection(defaultMoveDistance, direction);
-    }
-
     private int limitDistance(int distance) {
         if(distance > 3) {
             distance = 3;
