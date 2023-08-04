@@ -9,6 +9,12 @@ public class Fraction {
         this.denominator = denominator;
     }
 
+    public double toDecimalNotation() {
+        double n = numerator;
+        double d = denominator;
+        return n/d;
+    }
+
     public String toString() {
         String numeratorString = String.valueOf(numerator);
         String denominatorString = String.valueOf(denominator);
