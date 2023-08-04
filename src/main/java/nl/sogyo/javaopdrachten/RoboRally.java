@@ -6,10 +6,22 @@ public class RoboRally {
         robotOne.printState();
         robotOne.forward();
         robotOne.turnLeft();
+        robotOne.execute();
         robotOne.printState();
         robotOne.forward();
+        robotOne.execute();
         robotOne.printState();
         robotOne.backward();
+        robotOne.execute();
+        robotOne.printState();
+        robotOne.forward(8);
+        robotOne.execute();
+        robotOne.printState();
+        robotOne.turnRight();
+        robotOne.turnRight();
+        robotOne.turnRight();
+        robotOne.turnLeft();
+        robotOne.execute();
         robotOne.printState();
     }
 }
