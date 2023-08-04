@@ -31,14 +31,28 @@ public class Hangman {
 
     public static char getGuess(Scanner inputStream) {
         String inputLine = inputStream.nextLine();
-        char inputCharacter = inputLine.toCharArray()[0];
+        char inputCharacter = safeGetFirstCharacter(inputLine);
         while(notSingleCharacter(inputLine) || !Character.isLetter(inputCharacter)) {
             System.out.println("Please input a single letter for a guess.");
             inputLine = inputStream.nextLine();
-            inputCharacter = inputLine.toCharArray()[0];
+            inputCharacter = safeGetFirstCharacter(inputLine);
         }
         inputCharacter = Character.toUpperCase(inputCharacter);
         return inputCharacter;
+    }
+
+
+    public static char safeGetFirstCharacter(String input) {
+        if(isEmpty(input)) {
+            return '/';
+        } else {
+            return input.toCharArray()[0];
+        }
+    }
+
+
+    public static boolean isEmpty(String input) {
+        return (input.length() < 1);
     }
 
 
