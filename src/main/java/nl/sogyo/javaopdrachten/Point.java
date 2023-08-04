@@ -14,6 +14,7 @@ public class Point {
     }
 
     public void moveDistanceInDirection(int distance, Direction direction) {
+        distance = limitDistance(distance);
         switch(direction) {
             case NORTH:
                 moveNorth(distance);
@@ -33,6 +34,15 @@ public class Point {
     public void moveDistanceInDirection(Direction direction) {
         int defaultMoveDistance = 1;
         moveDistanceInDirection(defaultMoveDistance, direction);
+    }
+
+    private int limitDistance(int distance) {
+        if(distance > 3) {
+            distance = 3;
+        } else if (distance < 1) {
+            distance = 1;
+        }
+        return distance;
     }
 
     public void moveEast(int distance) {
