@@ -12,17 +12,32 @@ public class Quote {
 
     public static void main(String[] args) {
         for(int i = 0; i < quotes.length; i++) {
-            printQuoteAtIndex(i);
-            System.out.println();
+            printQuoteWithNameAtIndex(i);
         }
+    }
+
+
+    public static void printQuoteWithNameAtIndex(int index) {
+        printQuoteAtIndex(index);
+        System.out.print(" --- ");
+        printNameAtIndex(index);
+        System.out.println();
     }
 
 
     public static void printQuoteAtIndex(int index) {
         String quote = getQuoteAtIndex(index);
-        quote = fixCapitalAndPunctuation(quote);
+        quote = capitalizeFirstLetter(quote);
+        quote = ensureEndingPunctuation(quote);
         quote = surroundWithQuotes(quote);
         System.out.print(quote);
+    }
+
+
+    public static void printNameAtIndex(int index) {
+        String name = getNameAtIndex(index);
+        name = capitalizeNames(name);
+        System.out.print(name);
     }
 
 
@@ -31,16 +46,50 @@ public class Quote {
     }
 
 
+    private static String getNameAtIndex(int index) {
+        return quotes[index][0];
+    }
+
+
     public static String surroundWithQuotes(String quote) {
         return '"' + quote + '"';
     }
 
 
-    public static String fixCapitalAndPunctuation(String quote) {
-        String replacedQuote = quote;
+    public static String capitalizeNames(String name) {
+        String[] names = name.split(" ");
+        for(int i = 0; i < names.length; i++) {
+            names[i] = capitalizeFirstLetter(names[i]);
+        }
+        name = arrayToSpaceSeparatedString(names);
+        return name;
+    }
+
+
+    public static String arrayToSpaceSeparatedString(String[] stringArray) {
+        StringBuilder accumulator = new StringBuilder();
+        for(int i = 0; i < stringArray.length; i++) {
+            accumulator.append(stringArray[i]);
+            if(i < stringArray.length - 1) { 
+                accumulator.append(' ');
+            }
+        }
+        String returnString = accumulator.toString();
+        return returnString;
+    }
+
+
+    public static String capitalizeFirstLetter(String quote) {
+        String replacedQuote = quote; //Maybe split in two?
         if(notCapitalized(quote)) {
             replacedQuote = setFirstUppercase(replacedQuote);
         }
+        return replacedQuote;
+    }
+
+
+    public static String ensureEndingPunctuation(String quote) {
+        String replacedQuote = quote;
         if(notEndingOnFullStop(quote)) {
             replacedQuote = appendFullStop(replacedQuote);
         }
