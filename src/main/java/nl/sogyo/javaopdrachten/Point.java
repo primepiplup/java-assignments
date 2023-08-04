@@ -40,19 +40,19 @@ public class Point {
         return distance;
     }
 
-    public void moveEast(int distance) {
+    private void moveEast(int distance) {
         moveOnX(distance);
     }
 
-    public void moveWest(int distance) {
+    private void moveWest(int distance) {
         moveOnX(-distance);
     }
 
-    public void moveNorth(int distance) {
+    private void moveNorth(int distance) {
         moveOnY(distance);
     }
 
-    public void moveSouth(int distance) {
+    private void moveSouth(int distance) {
         moveOnY(-distance);
     }
 
