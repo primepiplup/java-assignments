@@ -1,5 +1,7 @@
 package nl.sogyo.javaopdrachten;
 
+import java.util.GregorianCalendar;
+
 public class Quote {
     static String[][] quotes = {
         {"galileo", "eppur si muove"},
@@ -11,9 +13,20 @@ public class Quote {
     };
 
     public static void main(String[] args) {
-        for(int i = 0; i < quotes.length; i++) {
-            printQuoteWithNameAtIndex(i);
-        }
+        int dayIndex = getIndexForDay();
+        printQuoteWithNameAtIndex(dayIndex);
+    }
+
+
+    public static int getIndexForDay() {
+        int dayIndex = getDayNumber() % 6;
+        return dayIndex; 
+    }
+
+
+    public static int getDayNumber() {
+        GregorianCalendar rightNow = new GregorianCalendar();
+        return rightNow.get(GregorianCalendar.DAY_OF_YEAR);
     }
 
 
