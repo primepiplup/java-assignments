@@ -36,7 +36,6 @@ public class Fraction {
     }
 
     public Fraction add(Fraction fractionToAdd) {
-        int fractionToAddDenominator = fractionToAdd.getDenominator() * denominator;
         int fractionToAddNumerator = fractionToAdd.getNumerator() * denominator;
         int tempDenominator = denominator * fractionToAdd.getDenominator();
         int tempNumerator = numerator * fractionToAdd.getDenominator();
