@@ -12,7 +12,11 @@ public class Node {
         this.question = question;
     }
 
-    public int pathsFrom() {
+    public Boolean isEndNode() {
+        return (numberOfPathsFrom() <= 0);
+    }
+
+    public int numberOfPathsFrom() {
         return edgeList.size();
     }
 
