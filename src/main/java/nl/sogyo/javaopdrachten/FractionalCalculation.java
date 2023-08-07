@@ -10,6 +10,9 @@ public class FractionalCalculation {
         System.out.println(fractionA.add(fractionB));
         System.out.println(new Fraction(4, 3).subtract(1));
         System.out.println(new Fraction(1, 2).subtract(new Fraction(1, 6)));
-        
+        System.out.println(new Fraction(3, 4).multiply(2));
+        System.out.println(new Fraction(3, 4).multiply(new Fraction(2, 5)));
+        System.out.println(new Fraction(3, 2).divide(2));
+        System.out.println(new Fraction(3, 10).divide(new Fraction(2, 5)));
     }
 }

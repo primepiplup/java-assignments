@@ -9,6 +9,10 @@ public class Fraction {
         this.denominator = denominator;
     }
 
+    public Fraction flip() {
+        return new Fraction(denominator, numerator);
+    }
+
     public int getNumerator() {
         return numerator;
     }
@@ -51,6 +55,31 @@ public class Fraction {
     public Fraction subtract(Fraction fractionToSubtract) {
         Fraction negativeFraction = new Fraction(fractionToSubtract.getNumerator() * -1, fractionToSubtract.getDenominator());
         return add(negativeFraction);
+    }
+
+    public Fraction multiply(int number) {
+        Fraction multipliedFraction = new Fraction(numerator * number, denominator);
+        multipliedFraction.reduce();
+        return multipliedFraction;
+    }
+
+    public Fraction multiply(Fraction fraction) {
+        int newNumerator = numerator * fraction.getNumerator();
+        int newDenominator = denominator * fraction.getDenominator();
+        Fraction multipliedFraction = new Fraction(newNumerator, newDenominator);
+        multipliedFraction.reduce();
+        return multipliedFraction;
+    }
+
+    public Fraction divide(int number) {
+        Fraction dividedFraction = new Fraction(numerator, denominator * number);
+        dividedFraction.reduce();
+        return dividedFraction;
+    }
+
+    public Fraction divide(Fraction fraction) {
+        Fraction flippedFraction = fraction.flip();
+        return multiply(flippedFraction);
     }
 
     private void reduce() {
