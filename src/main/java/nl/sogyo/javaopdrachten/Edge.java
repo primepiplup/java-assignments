@@ -1,5 +1,7 @@
 package nl.sogyo.javaopdrachten;
 
 public class Edge {
-    //TODO
+    private Node origin;
+    private Node destination;
+    private String answer = new String();
 }
