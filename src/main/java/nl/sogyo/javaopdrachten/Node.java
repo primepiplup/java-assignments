@@ -42,7 +42,11 @@ public class Node {
     }
 
     public void printAndPropegateDown() {
-        System.out.println("Name: " + name + " | Question: " + question);
+        if(!isEndNode()) {
+            System.out.println("Name: " + name + " | Question: " + question);
+        } else {
+            System.out.println("Name: " + name + " | Result: " + question);
+        }
         for(int i = 0; i < edgeListFromHere.size(); i++) {
             edgeListFromHere.get(i).printAndPropegateDown();
         }
