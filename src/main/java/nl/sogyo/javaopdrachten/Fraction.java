@@ -44,6 +44,15 @@ public class Fraction {
         return addedFraction;
     }
 
+    public Fraction subtract(int numberToSubtract) {
+        return add(numberToSubtract * -1);
+    }
+
+    public Fraction subtract(Fraction fractionToSubtract) {
+        Fraction negativeFraction = new Fraction(fractionToSubtract.getNumerator() * -1, fractionToSubtract.getDenominator());
+        return add(negativeFraction);
+    }
+
     private void reduce() {
         int greatestCommonFactor = getGreatestCommonFactor();
         numerator = numerator / greatestCommonFactor;

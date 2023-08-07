@@ -8,5 +8,8 @@ public class FractionalCalculation {
         Fraction fractionB = new Fraction(1, 6);
         System.out.println(fractionA.add(1));
         System.out.println(fractionA.add(fractionB));
+        System.out.println(new Fraction(4, 3).subtract(1));
+        System.out.println(new Fraction(1, 2).subtract(new Fraction(1, 6)));
+        
     }
 }
