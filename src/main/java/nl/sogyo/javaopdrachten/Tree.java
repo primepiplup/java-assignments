@@ -15,6 +15,7 @@ public class Tree {
             File inputFile = new File(filename);
             Scanner inputFileScanner = new Scanner(inputFile);
             buildTree(inputFileScanner);
+            inputFileScanner.close();
         } catch (FileNotFoundException exception) {
             exception.printStackTrace();
         }
@@ -27,6 +28,12 @@ public class Tree {
 
     public void printTree() {
         startNode.printAndPropegateDown();
+    }
+
+    public void traverse() {
+        Scanner userInput = new Scanner(System.in);
+        startNode.traverse(userInput);
+        userInput.close();
     }
 
     private void buildTreeFromDescription() {

@@ -1,5 +1,7 @@
 package nl.sogyo.javaopdrachten;
 
+import java.util.Scanner;
+
 public class Edge {
     private Node origin;
     private Node destination;
@@ -11,6 +13,14 @@ public class Edge {
         this.originName = originName;
         this.destinationName = destinationName;
         this.answer = answer;
+    }
+
+    public void traverse(Scanner userInput) {
+        destination.traverse(userInput);
+    }
+
+    public String getAnswer() {
+        return answer;
     }
 
     public String getOriginName() {

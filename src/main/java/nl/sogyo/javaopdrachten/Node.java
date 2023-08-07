@@ -1,6 +1,7 @@
 package nl.sogyo.javaopdrachten;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Node {
     private String name = new String();
@@ -50,5 +51,60 @@ public class Node {
         for(int i = 0; i < edgeListFromHere.size(); i++) {
             edgeListFromHere.get(i).printAndPropegateDown();
         }
+    }
+
+    public void traverse(Scanner userInput) {
+        if(edgeListFromHere.size() > 0) {
+            String response = getResponse(userInput);
+            findEdgeAndMoveDown(response, userInput);
+        } else {
+            System.out.println(question);
+        }
+    }
+
+    private String getResponse(Scanner userInput) {
+
+        String response = new String();
+        do {
+            prompt();
+            response = userInput.nextLine().strip();
+        } while (!isInAnEdge(response));
+        return response;
+    }
+
+    private Boolean isInAnEdge(String response) {
+        if(response.length() < 1) { return false; }
+        for(int i = 0; i < edgeListFromHere.size(); i++) {
+            if(edgeListFromHere.get(i).getAnswer().equalsIgnoreCase(response)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void prompt() {
+        System.out.println(question);
+        System.out.println("Opties: " + formattedEdgeOptions());
+    }
+
+    private void findEdgeAndMoveDown(String response, Scanner userInput) {
+        for(int i = 0; i < edgeListFromHere.size(); i++) {
+            if(edgeListFromHere.get(i).getAnswer().equalsIgnoreCase(response)) {
+                edgeListFromHere.get(i).traverse(userInput);
+            }
+        }
+    }
+
+    private String formattedEdgeOptions() {
+        StringBuilder accumulator = new StringBuilder();
+        int i = 0;
+        do {
+            accumulator.append(edgeListFromHere.get(i).getAnswer());
+            i++;
+        } while (i < edgeListFromHere.size() - 1); {
+            accumulator.append(" of ");
+            accumulator.append(edgeListFromHere.get(i).getAnswer());
+        }
+        return accumulator.toString();
     }
 }
