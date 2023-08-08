@@ -7,30 +7,32 @@ public class UserManager {
     public static void askForUserRegistration() {
         Scanner userInput = new Scanner(System.in);
         String username = askForUsername(userInput); 
-        System.out.println("Enter a password");
-        String password = userInput.nextLine();
-        try {
-            registerUser(username, password);
-        } catch(Exception e) {
-            System.out.println("Something went wrong with password registration");
-        }
+        String password = askForPassword(userInput);
+        registerUser(username, password);
     }
 
-    public static void registerUser(String username, String password) throws Exception {
-        if(isValidPassword(password)){
-            System.out.println("Registered user: " + username + ".");
-        } else {
-            throw new Exception("Horrible crash caused by incorrect password!");
-        }
+    public static void registerUser(String username, String password) {
+        System.out.println("Registered user: " + username + ".");
     }
 
     private static String askForUsername(Scanner userInput) {
-        String username;
-        do{ 
-            System.out.println("Enter a username");
+        System.out.println("Enter a username");
+        String username = userInput.nextLine();
+        while(!isValidUsername(username)) { 
+            System.out.println("Invalid username, please enter a different username");
             username = userInput.nextLine();
-        } while(!isValidUsername(username));
+        }
         return username;
+    }
+
+    private static String askForPassword(Scanner userInput) {
+        System.out.println("Enter a password");
+        String password = userInput.nextLine();
+        while(!isValidPassword(password)) {
+            System.out.println("Invalid password, please enter a different password");
+            password = userInput.nextLine();
+        }
+        return password;
     }
 
     public static Boolean isValidUsername(String username) {
