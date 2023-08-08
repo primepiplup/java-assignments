@@ -9,14 +9,18 @@ public class UserManager {
         String username = askForUsername(userInput); 
         System.out.println("Enter a password");
         String password = userInput.nextLine();
-        registerUser(username, password);
+        try {
+            registerUser(username, password);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public static void registerUser(String username, String password) {
+    public static void registerUser(String username, String password) throws Exception {
         if(isValidPassword(password)){
             System.out.println("Registered user: " + username + ".");
         } else {
-            //Next part of assignment
+            throw new Exception("Horrible crash caused by incorrect password!");
         }
     }
 
