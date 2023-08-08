@@ -10,4 +10,8 @@ public class Vector {
         this.y = y;
         this.z = z;
     }
+
+    public static Vector difference(Vector vectorA, Vector vectorB) {
+        return new Vector(vectorA.x - vectorB.x, vectorA.y - vectorB.y, vectorA.z - vectorB.z);
+    }
 }
