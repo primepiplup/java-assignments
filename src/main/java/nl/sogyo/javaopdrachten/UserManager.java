@@ -1,13 +1,41 @@
 package nl.sogyo.javaopdrachten;
 
+import java.util.Scanner;
+
 public class UserManager {
+
+    public static void askForUserRegistration() {
+        Scanner userInput = new Scanner(System.in);
+        String username = askForUsername(userInput); 
+        System.out.println("Enter a password");
+        String password = userInput.nextLine();
+        registerUser(username, password);
+    }
 
     public static void registerUser(String username, String password) {
         if(isValidPassword(password)){
-            System.out.println("Registered user: " + username);
+            System.out.println("Registered user: " + username + ".");
         } else {
             //Next part of assignment
         }
+    }
+
+    private static String askForUsername(Scanner userInput) {
+        String username;
+        do{ 
+            System.out.println("Enter a username");
+            username = userInput.nextLine();
+        } while(!isValidUsername(username));
+        return username;
+    }
+
+    public static Boolean isValidUsername(String username) {
+        if(username.isBlank()) {
+            return false;
+        } else if(username.contains(" ")) {
+            return false;
+        }
+        return true;
     }
 
     public static Boolean isValidPassword(String password) {
