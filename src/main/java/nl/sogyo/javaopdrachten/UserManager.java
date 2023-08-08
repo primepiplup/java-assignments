@@ -12,7 +12,7 @@ public class UserManager {
         try {
             registerUser(username, password);
         } catch(Exception e) {
-            e.printStackTrace();
+            System.out.println("Something went wrong with password registration");
         }
     }
 
