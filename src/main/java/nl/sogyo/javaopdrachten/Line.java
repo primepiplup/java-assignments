@@ -11,7 +11,7 @@ public class Line {
 
     public ParametricLine getParametricForm() {
         Vector origin = startingPoint;
-        Vector direction = Vector.difference(startingPoint, secondPoint);
+        Vector direction = Vector.displacement(startingPoint, secondPoint);
         return new ParametricLine(origin, direction);
     }
 }

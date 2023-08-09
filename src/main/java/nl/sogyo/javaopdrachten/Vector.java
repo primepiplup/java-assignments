@@ -28,8 +28,8 @@ public class Vector {
         }
     }
 
-    public static Vector difference(Vector vectorA, Vector vectorB) {
-        return new Vector(vectorA.x - vectorB.x, vectorA.y - vectorB.y, vectorA.z - vectorB.z);
+    public static Vector displacement(Vector vectorA, Vector vectorB) {
+        return new Vector(vectorB.x - vectorA.x, vectorB.y - vectorA.y, vectorB.z - vectorA.z);
     }
 
     public static double angle(Vector vectorA, Vector vectorB) {

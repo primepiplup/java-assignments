@@ -31,8 +31,8 @@ public class Viewport {
     }
 
     public Vector getVector(Coordinate coord) {
-        double xProportion = width / coord.x;
-        double yProportion = height / coord.y;
+        double xProportion = 1 - (width - coord.x) / width;
+        double yProportion = 1 - (height - coord.y) / height;
         Vector proportionTopEdge = getProportionOfTopEdge(xProportion);
         Vector proportionLeftEdge = getProportionOfLeftEdge(yProportion);
         return localAddVector(proportionTopEdge, proportionLeftEdge);

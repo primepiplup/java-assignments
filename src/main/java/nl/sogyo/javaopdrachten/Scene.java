@@ -16,15 +16,25 @@ public class Scene {
     }
 
     public void render() {
-        for(int x = 0; x < viewport.getWidth(); x++) {
-            for(int y = 0; y < viewport.getHeight(); y++) {
-                getColor(x, y);
+        int width = viewport.getWidth();
+        int height = viewport.getHeight();
+
+        double[][] brightnessArray = new double[width][height];
+
+        for(int x = 0; x < width; x++) {
+            for(int y = 0; y < height; y++) {
+                //brightnessArray[x][y] = 
+                getBrightness(x, y);
             }
         }
     }
 
-    public void getColor(int x, int y) {
-        getRay(x, y);
+    public void getBrightness(int x, int y) {
+        Line ray = getRay(x, y);
+        ArrayList<Vector[]> intersectList = new ArrayList<Vector[]>();
+        for(Shape s : shapeList) {
+            intersectList.add(s.intersect(ray));
+        }
     }
 
     public Line getRay(int x, int y) {
