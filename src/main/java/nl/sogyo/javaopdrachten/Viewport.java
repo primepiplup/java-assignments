@@ -4,10 +4,10 @@ public class Viewport {
     private Vector topLeftCorner;
     private Vector bottomLeftCorner;
     private Vector topRightCorner;
-    private double width;
-    private double height;
+    private int width;
+    private int height;
 
-    public Viewport(Vector topLeftCorner, Vector bottomLeftCorner, Vector topRightCorner, double width, double height) {
+    public Viewport(Vector topLeftCorner, Vector bottomLeftCorner, Vector topRightCorner, int width, int height) {
         this.topLeftCorner = topLeftCorner;
         this.bottomLeftCorner = bottomLeftCorner;
         this.topRightCorner = topRightCorner;
@@ -15,11 +15,11 @@ public class Viewport {
         this.height = height;
     }
 
-    public double getWidth() {
+    public int getWidth() {
         return width;
     }
 
-    public double getHeight() {
+    public int getHeight() {
         return height;
     }
 
