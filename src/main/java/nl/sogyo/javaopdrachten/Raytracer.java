@@ -5,13 +5,12 @@ import java.util.ArrayList;
 public class Raytracer {
     public static void main(String[] args) {
         Vector viewpoint = new Vector(0, 0, 0);
-        int width = 150;
-        int height = 100;
-        Viewport viewport = new Viewport(new Vector(-400, 300, 50), new Vector(-400, -300, 50), new Vector(400, 300, 50), width, height);
+        int width = 500;
+        int height = 400;
+        Viewport viewport = new Viewport(new Vector(-200, 150, 50), new Vector(-200, -150, 50), new Vector(200, 150, 50), width, height);
         
         ArrayList<Shape> shapeList = new ArrayList<Shape>();
-        shapeList.add(new Sphere(new Vector(0, 0, 100), 100));
-        shapeList.add(new Sphere(new Vector(100, 150, 130), 50));
+        shapeList.add(new Sphere(new Vector(50, -20, 50), 50));
         
         ArrayList<LightSource> lightList = new ArrayList<LightSource>();
         lightList.add(new LightSource(new Vector(500, 500, 155), 100));

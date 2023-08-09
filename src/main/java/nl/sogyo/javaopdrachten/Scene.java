@@ -62,7 +62,7 @@ public class Scene {
             intersectList.add(s.intersect(ray));
         }
         if(noIntersects(intersectList)) {
-            return 255;
+            return 0;
         } else {
             Vector closestIntersect = getClosestIntersect(intersectList);
             return getBrightnessForCollision(closestIntersect);
