@@ -14,5 +14,8 @@ public class Raytracer {
         ArrayList<LightSource> lightList = new ArrayList<LightSource>();
         lightList.add(new LightSource(new Vector(500, 500, 155), 100));
         lightList.add(new LightSource(new Vector(500, -100, 75), 50));
+
+        Scene scene = new Scene(viewpoint, viewport, shapeList, lightList);
+        scene.render();
     }
 }
