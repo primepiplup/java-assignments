@@ -10,6 +10,23 @@ public class Vector {
         this.y = y;
         this.z = z;
     }
+    
+    public String toString() {
+        String vectorString = "(" + Double.toString(x)+ ", " + Double.toString(y) + ", " + Double.toString(z) + ")";
+        return vectorString;
+    }
+
+    public static Boolean isOverlapping(Vector vectorA, Vector vectorB) {
+        if(vectorA.x != vectorB.x) {
+            return false;
+        } else if(vectorA.y != vectorB.y) {
+            return false;
+        } else if(vectorA.z != vectorB.z) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     public static Vector difference(Vector vectorA, Vector vectorB) {
         return new Vector(vectorA.x - vectorB.x, vectorA.y - vectorB.y, vectorA.z - vectorB.z);
@@ -26,5 +43,15 @@ public class Vector {
 
     public static double dotProduct(Vector vectorA, Vector vectorB) {
         return vectorA.x * vectorB.x + vectorA.y * vectorB.y + vectorA.z * vectorB.z;
+    }
+
+    public static Vector crossProduct(Vector vectorA, Vector vectorB) {
+        return new Vector(  vectorA.y * vectorB.z - vectorA.z * vectorB.y,
+                            vectorA.z * vectorB.x - vectorA.x * vectorB.z,
+                            vectorA.x * vectorB.y - vectorA.y * vectorB.x);
+    }
+
+    public static Vector minus(Vector vectorA, Vector vectorB) {
+        return new Vector(vectorA.x - vectorB.x, vectorA.y - vectorB.y, vectorA.z - vectorB.z);
     }
 }
