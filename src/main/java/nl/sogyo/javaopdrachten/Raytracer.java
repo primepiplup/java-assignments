@@ -5,7 +5,9 @@ import java.util.ArrayList;
 public class Raytracer {
     public static void main(String[] args) {
         Vector viewpoint = new Vector(0, 0, 0);
-        Viewport viewport = new Viewport(new Vector(-400, 300, 50), new Vector(-400, -300, 50), new Vector(400, 300, 50), 400, 300);
+        int width = 150;
+        int height = 100;
+        Viewport viewport = new Viewport(new Vector(-400, 300, 50), new Vector(-400, -300, 50), new Vector(400, 300, 50), width, height);
         
         ArrayList<Shape> shapeList = new ArrayList<Shape>();
         shapeList.add(new Sphere(new Vector(0, 0, 100), 100));

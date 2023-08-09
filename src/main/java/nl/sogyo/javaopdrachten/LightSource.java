@@ -2,9 +2,9 @@ package nl.sogyo.javaopdrachten;
 
 public class LightSource {
     private Vector position;
-    private double brightness;
+    private int brightness;
 
-    public LightSource(Vector position, double brightness) {
+    public LightSource(Vector position, int brightness) {
         this.position = position;
         this.brightness = brightness;
     }

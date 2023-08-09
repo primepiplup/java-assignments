@@ -36,11 +36,11 @@ public class Sphere implements Shape{
     }
 
     public double getQuadraticResultA(double a, double b, double c, double discriminant) {
-        return ((-1 * b) + Math.sqrt(discriminant)) / (2 * a);
+        return ((-2 * b) + Math.sqrt(discriminant)) / (2 * a);
     }
 
     public double getQuadraticResultB(double a, double b, double c, double discriminant) {
-        return ((-1 * b) - Math.sqrt(discriminant)) / (2 * a);
+        return ((-2 * b) - Math.sqrt(discriminant)) / (2 * a);
     }
 
     public double discriminant(double a, double b, double c) {

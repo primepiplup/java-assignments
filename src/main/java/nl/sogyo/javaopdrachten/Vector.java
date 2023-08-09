@@ -28,8 +28,10 @@ public class Vector {
         }
     }
 
-    public static Vector displacement(Vector vectorA, Vector vectorB) {
-        return new Vector(vectorB.x - vectorA.x, vectorB.y - vectorA.y, vectorB.z - vectorA.z);
+    public static double distance(Vector vectorA, Vector vectorB) {
+        Vector displacementVector = displacement(vectorA, vectorB);
+        double distance = magnitude(displacementVector);
+        return distance;
     }
 
     public static double angle(Vector vectorA, Vector vectorB) {
@@ -49,6 +51,10 @@ public class Vector {
         return new Vector(  vectorA.y * vectorB.z - vectorA.z * vectorB.y,
                             vectorA.z * vectorB.x - vectorA.x * vectorB.z,
                             vectorA.x * vectorB.y - vectorA.y * vectorB.x);
+    }
+
+    public static Vector displacement(Vector vectorA, Vector vectorB) {
+        return new Vector(vectorB.x - vectorA.x, vectorB.y - vectorA.y, vectorB.z - vectorA.z);
     }
 
     public static Vector minus(Vector vectorA, Vector vectorB) {
