@@ -54,4 +54,8 @@ public class Vector {
     public static Vector minus(Vector vectorA, Vector vectorB) {
         return new Vector(vectorA.x - vectorB.x, vectorA.y - vectorB.y, vectorA.z - vectorB.z);
     }
+
+    public static Vector add(Vector vectorA, Vector vectorB) {
+        return new Vector(vectorA.x + vectorB.x, vectorA.y + vectorB.y, vectorA.z + vectorB.z);
+    }
 }
