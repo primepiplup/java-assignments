@@ -4,6 +4,11 @@ public class Sphere implements Shape{
     private Vector origin;
     private double radius;
 
+    public Sphere(Vector origin, double radius) {
+        this.origin = origin;
+        this.radius = radius;
+    }
+
     public Vector[] intersect(Line line) {
         ParametricLine calculationLine = line.getParametricForm();
         Vector originDiff = Vector.minus(calculationLine.origin, origin);
