@@ -57,39 +57,63 @@ public class Scene {
 
     public int getBrightness(int x, int y) {
         Line ray = getRay(x, y);
-        ArrayList<Vector[]> intersectList = new ArrayList<Vector[]>();
+        Vector[] intersects = new Vector[0];
+        Vector closestIntersect = viewpoint;
+        Shape collisionShape = shapeList.get(0);
         for(Shape s : shapeList) {
-            intersectList.add(s.intersect(ray));
-        }
-        if(noIntersects(intersectList)) {
-            return 0;
-        } else {
-            Vector closestIntersect = getClosestIntersect(intersectList);
-            return getBrightnessForCollision(closestIntersect);
-        }
-    }
-
-    public Boolean noIntersects(ArrayList<Vector[]> intersectList) {
-        for(Vector[] vectorArray : intersectList) {
-            if(vectorArray.length != 0) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public Vector getClosestIntersect(ArrayList<Vector[]> intersectList) {
-        ArrayList<Vector> closeIntersectPerShape = new ArrayList<Vector>();
-        for(Vector[] vectorArray : intersectList) {
-            if(vectorArray.length == 0) {
+            intersects = s.intersect(ray);
+            if(noIntersects(intersects)){
                 continue;
             } else {
-                closeIntersectPerShape.add(getClosestIntersect(vectorArray));
+                Vector closestNewIntersect = getClosestIntersect(intersects);
+                if(closestIntersect == viewpoint || closer(closestNewIntersect, closestIntersect)) {
+                    collisionShape = s;
+                    closestIntersect = closestNewIntersect;
+                }
             }
         }
-        Vector[] closeIntersectArray = new Vector[closeIntersectPerShape.size()];
-        closeIntersectPerShape.toArray(closeIntersectArray);
-        return getClosestIntersect(closeIntersectArray);
+        if(closestIntersect == viewpoint) {
+            return 0;
+        } else {
+            return getBrightnessForCollision(closestIntersect, collisionShape);
+        }
+    }
+
+    public int getBrightnessForCollision(Vector intersectPoint, Shape collisionShape) {
+        int brightness = 0;
+        for(LightSource light : lightList) {
+            Line fromIntersectToLight = new Line(intersectPoint, light.getPosition());
+            if(!isObstructed(fromIntersectToLight)) {
+                brightness += getLambartianBrightness(collisionShape, intersectPoint, light);
+            }
+        }
+        return Math.min(255, brightness);
+    }
+
+    public int getLambartianBrightness(Shape shape, Vector intersect, LightSource light) {
+        double lightBrightness = light.getBrightness();
+        Vector directionToLight = new Line(intersect, light.getPosition()).getParametricForm().direction;
+        double dotproduct = Vector.dotProduct(Vector.normalize(shape.perpendicularVector(intersect)), Vector.normalize(directionToLight));
+        double brightness = shape.diffuseCoefficient() * lightBrightness * Math.max(0, dotproduct);
+        return (int)brightness;
+
+    }
+
+    public Boolean isObstructed(Line fromIntersectToLight) {
+        for(Shape shape : shapeList) {
+            Vector[] intersectors = shape.intersect(fromIntersectToLight);
+            if(intersectors.length != 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Boolean noIntersects(Vector[] intersects) {
+        if(intersects.length != 0) {
+            return false;
+        }
+        return true;
     }
 
     public Vector getClosestIntersect(Vector[] vectorArray) {
@@ -102,25 +126,13 @@ public class Scene {
         return closestIntersect;
     }
 
-    public int getBrightnessForCollision(Vector intersectPoint) {
-        int brightness = 0;
-        for(LightSource light : lightList) {
-            Line fromIntersectToLight = new Line(intersectPoint, light.getPosition());
-            if(!isObstructed(fromIntersectToLight)) {
-                brightness += light.getBrightness();
-            }
-        }
-        return brightness;
+    public Boolean closer(Vector pointA, Vector pointB) {
+        return (Vector.distance(viewpoint, pointA) < Vector.distance(viewpoint, pointB));
     }
 
-    public Boolean isObstructed(Line fromIntersectToLight) {
-        for(Shape shape : shapeList) {
-            Vector[] intersectors = shape.intersect(fromIntersectToLight);
-            if(intersectors.length != 0) {
-                return true;
-            }
-        }
-        return false;
+    public Shape getShapeForIntersectFromLists(Vector intersect, ArrayList<Vector> intersectList, ArrayList<Shape> shapesThatIntersected) {
+        int intersectIndex = intersectList.lastIndexOf(intersect);
+        return shapesThatIntersected.get(intersectIndex);
     }
 
     public Line getRay(int x, int y) {
