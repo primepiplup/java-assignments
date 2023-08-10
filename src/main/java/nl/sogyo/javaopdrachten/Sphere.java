@@ -5,10 +5,22 @@ import java.util.ArrayList;
 public class Sphere implements Shape{
     private Vector origin;
     private double radius;
+    private double diffuseCoefficient;
 
-    public Sphere(Vector origin, double radius) {
+    public Sphere(Vector origin, double radius, double diffuseCoefficient) {
         this.origin = origin;
         this.radius = radius;
+        this.diffuseCoefficient = diffuseCoefficient;
+    }
+
+    public double diffuseCoefficient() {
+        return diffuseCoefficient;
+    }
+
+    public Vector perpendicularVector(Vector point) {
+        Line originToPoint = new Line(origin, point);
+        ParametricLine perpendicularLine = originToPoint.getParametricForm();
+        return perpendicularLine.direction;
     }
 
     public Vector[] intersect(Line line) {
@@ -48,15 +60,15 @@ public class Sphere implements Shape{
         return intersectionPoints;
     }
 
-    public double getQuadraticResultA(double a, double b, double c, double discriminant) {
+    private double getQuadraticResultA(double a, double b, double c, double discriminant) {
         return ((-1 * b) + Math.sqrt(discriminant)) / (2 * a);
     }
 
-    public double getQuadraticResultB(double a, double b, double c, double discriminant) {
+    private double getQuadraticResultB(double a, double b, double c, double discriminant) {
         return ((-1 * b) - Math.sqrt(discriminant)) / (2 * a);
     }
 
-    public double discriminant(double a, double b, double c) {
+    private double discriminant(double a, double b, double c) {
         return (b * b) - (4 * a * c);
     }
 }
