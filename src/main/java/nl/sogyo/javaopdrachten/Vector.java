@@ -46,6 +46,11 @@ public class Vector {
         return Math.toDegrees(radians);
     }
 
+    public static Vector normalize(Vector vector) {
+        double magnitude = magnitude(vector);
+        return new Vector(vector.x / magnitude, vector.y / magnitude, vector.z / magnitude);
+    }
+
     public static double magnitude(Vector vector) {
         return Math.sqrt(vector.x * vector.x + vector.y * vector.y + vector.z * vector.z);
     }
