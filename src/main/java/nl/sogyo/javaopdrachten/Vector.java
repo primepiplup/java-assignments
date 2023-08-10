@@ -35,7 +35,14 @@ public class Vector {
     }
 
     public static double angle(Vector vectorA, Vector vectorB) {
-        double radians = Math.acos(dotProduct(vectorA, vectorB) / magnitude(vectorA) * magnitude(vectorB));
+        double dotproduct = dotProduct(vectorA, vectorB);
+        double magnitudeA = magnitude(vectorA);
+        double magnitudeB = magnitude(vectorB);
+        double ratio = dotproduct /  (magnitudeA * magnitudeB);
+        if(ratio > 0.99) {
+            return 0;
+        }
+        double radians = Math.acos(ratio);
         return Math.toDegrees(radians);
     }
 
