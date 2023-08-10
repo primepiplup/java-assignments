@@ -105,12 +105,11 @@ public class Scene {
     public int getBrightnessForCollision(Vector intersectPoint) {
         int brightness = 0;
         for(LightSource light : lightList) {
-            Line fromIntersectToLight = new Line(light.getPosition(), intersectPoint);
+            Line fromIntersectToLight = new Line(intersectPoint, light.getPosition());
             if(!isObstructed(fromIntersectToLight)) {
                 brightness += light.getBrightness();
             }
         }
-        System.out.println(brightness);
         return brightness;
     }
 
