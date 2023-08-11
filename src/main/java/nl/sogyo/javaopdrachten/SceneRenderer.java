@@ -95,8 +95,23 @@ public class SceneRenderer {
     private Boolean isObstructed(Line fromIntersectToLight) {
         for(Shape shape : scene.getShapes()) {
             Vector[] intersectors = shape.intersect(fromIntersectToLight);
-            if(intersectors.length != 0) {
+            if(intersectBetweenIntersectAndLight(intersectors, fromIntersectToLight)) {
                 return true;
+            }
+        }
+        return false;
+    }
+
+    private Boolean intersectBetweenIntersectAndLight(Vector[] intersectors, Line fromIntersectToLight) {
+        if(intersectors.length == 0) {
+            return false;
+        } else {
+            for(Vector intersect : intersectors) {
+                ParametricLine rayFromOriginalIntersectToLight = fromIntersectToLight.getParametricForm();
+                ParametricLine rayFromLightToNewIntersect = new ParametricLine(fromIntersectToLight.secondPoint, rayFromOriginalIntersectToLight.direction);
+                if(!ParametricLine.isVectorAheadOfLine(intersect, rayFromLightToNewIntersect)) {
+                    return true;
+                }
             }
         }
         return false;
