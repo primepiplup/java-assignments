@@ -69,6 +69,10 @@ public class Vector {
         return new Vector(vectorB.x - vectorA.x, vectorB.y - vectorA.y, vectorB.z - vectorA.z);
     }
 
+    public static Vector multiply(Vector vector, double scalar) {
+        return new Vector(vector.x * scalar, vector.y * scalar, vector.z * scalar);
+    }
+
     public static Vector minus(Vector vectorA, Vector vectorB) {
         return new Vector(vectorA.x - vectorB.x, vectorA.y - vectorB.y, vectorA.z - vectorB.z);
     }
