@@ -1,14 +1,14 @@
 package nl.sogyo.javaopdrachten;
 
 public class Plane implements Shape {
-    private double diffuseCoefficient;
+    private Material material;
     private Vector origin;
     private Vector normal;
 
-    public Plane(Vector origin, Vector normal, double diffuseCoefficient) {
+    public Plane(Vector origin, Vector normal, Material material) {
         this.origin = origin;
         this.normal = normal;
-        this.diffuseCoefficient = diffuseCoefficient;
+        this.material = material;
     }
 
     public Vector perpendicularVector(Vector point) {
@@ -29,7 +29,7 @@ public class Plane implements Shape {
         return new Vector[0];
     }
 
-    public double diffuseCoefficient() {
-        return diffuseCoefficient;
+    public Material material() {
+        return material;
     }
 }

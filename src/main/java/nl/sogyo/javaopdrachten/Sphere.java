@@ -5,16 +5,16 @@ import java.util.ArrayList;
 public class Sphere implements Shape{
     private Vector origin;
     private double radius;
-    private double diffuseCoefficient;
+    private Material material;
 
-    public Sphere(Vector origin, double radius, double diffuseCoefficient) {
+    public Sphere(Vector origin, double radius, Material material) {
         this.origin = origin;
         this.radius = radius;
-        this.diffuseCoefficient = diffuseCoefficient;
+        this.material = material;
     }
 
-    public double diffuseCoefficient() {
-        return diffuseCoefficient;
+    public Material material() {
+        return material;
     }
 
     public Vector perpendicularVector(Vector point) {
