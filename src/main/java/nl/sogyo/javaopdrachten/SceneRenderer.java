@@ -16,23 +16,22 @@ public class SceneRenderer {
     public void renderToImage(String filepath) {
         int width = scene.getViewport().getWidth();
         int height = scene.getViewport().getHeight();
-        int[][] brightnessArray = new int[width][height];
+        Color[][] colorArray = new Color[width][height];
         for(int x = 0; x < width; x++) {
             for(int y = 0; y < height; y++) {
-                brightnessArray[x][y] = getBrightness(x, y);
+                colorArray[x][y] = getColor(x, y);
             }
         }
-        BufferedImage image = arrayToImage(brightnessArray);
+        BufferedImage image = arrayToImage(colorArray);
         saveRender(image, filepath);
     }
 
-    private BufferedImage arrayToImage(int[][] brightnessArray) {
+    private BufferedImage arrayToImage(Color[][] colorArray) {
         BufferedImage image = new BufferedImage(scene.getViewport().getWidth(), scene.getViewport().getHeight(), BufferedImage.TYPE_INT_ARGB);
         for(int x = 0; x < scene.getViewport().getWidth(); x++) {
             for(int y = 0; y < scene.getViewport().getHeight(); y++) {
-                int brightness = brightnessArray[x][y];
-                Color pixel = new Color(brightness, brightness, brightness, 255);
-                image.setRGB(x, y, pixel.getRGB());
+                int color = colorArray[x][y].getRGB();
+                image.setRGB(x, y, color);
             }
         }
         return image;
@@ -48,7 +47,7 @@ public class SceneRenderer {
         }
     }
 
-    private int getBrightness(int x, int y) {
+    private Color getColor(int x, int y) {
         Line ray = getRay(x, y);
         Vector[] intersects = new Vector[0];
         Vector closestIntersect = scene.getViewpoint();
@@ -66,13 +65,13 @@ public class SceneRenderer {
             }
         }
         if(closestIntersect == scene.getViewpoint()) {
-            return 0;
+            return Color.BLACK;
         } else {
-            return getBrightnessForCollision(closestIntersect, collisionShape);
+            return getColorForCollision(closestIntersect, collisionShape);
         }
     }
 
-    private int getBrightnessForCollision(Vector intersectPoint, Shape collisionShape) {
+    private Color getColorForCollision(Vector intersectPoint, Shape collisionShape) {
         int brightness = 0;
         for(LightSource light : scene.getLights()) {
             Line fromIntersectToLight = new Line(intersectPoint, light.getPosition());
@@ -80,14 +79,29 @@ public class SceneRenderer {
                 brightness += getLambartianBrightness(collisionShape, intersectPoint, light);
             }
         }
-        return Math.min(255, brightness);
+
+        brightness = Math.min(255, brightness);
+        Color collisionColor = getColorFromShapeForBrightness(collisionShape, brightness);
+        return collisionColor;
+    }
+
+    private Color getColorFromShapeForBrightness(Shape shape, int brightness) {
+        double brightnessProportion = (double)brightness / 255;
+        int red = shape.material().color.getRed();
+        int green = shape.material().color.getGreen();
+        int blue = shape.material().color.getBlue();
+        red = (int)(red * brightnessProportion);
+        green = (int)(green * brightnessProportion);
+        blue = (int)(blue * brightnessProportion);
+        Color colorForBrightness = new Color(red, green, blue, 255);
+        return colorForBrightness;
     }
 
     private int getLambartianBrightness(Shape shape, Vector intersect, LightSource light) {
         double lightBrightness = light.getBrightness();
         Vector directionToLight = new Line(intersect, light.getPosition()).getParametricForm().direction;
         double dotproduct = Vector.dotProduct(Vector.normalize(shape.perpendicularVector(intersect)), Vector.normalize(directionToLight));
-        double brightness = shape.diffuseCoefficient() * lightBrightness * Math.max(0, dotproduct);
+        double brightness = shape.material().diffuseCoefficient * lightBrightness * Math.max(0, dotproduct);
         return (int)brightness;
 
     }
