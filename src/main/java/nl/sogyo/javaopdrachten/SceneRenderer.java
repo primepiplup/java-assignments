@@ -8,9 +8,13 @@ import javax.imageio.ImageIO;
 
 public class SceneRenderer {
     private Scene scene;
+    private int reflectionDepth;
+    private int maxReflectionDepth;
 
     public SceneRenderer(Scene scene) {
         this.scene = scene;
+        this.reflectionDepth = 0;
+        this.maxReflectionDepth = 5;
     }
 
     public void renderToImage(String filepath) {
@@ -49,6 +53,11 @@ public class SceneRenderer {
 
     private Color getColor(int x, int y) {
         Line ray = getRay(x, y);
+        reflectionDepth = 0;
+        return getColorForRay(ray);
+    }
+
+    private Color getColorForRay(Line ray) {
         Vector[] intersects = new Vector[0];
         Vector closestIntersect = scene.getViewpoint();
         Shape collisionShape = scene.getShapes().get(0);
@@ -79,10 +88,29 @@ public class SceneRenderer {
                 brightness += getLambartianBrightness(collisionShape, intersectPoint, light);
             }
         }
-
         brightness = Math.min(255, brightness);
         Color collisionColor = getColorFromShapeForBrightness(collisionShape, brightness);
-        return collisionColor;
+        if(reflectionDepth < maxReflectionDepth && collisionShape.material().reflectivity > 0.01) {
+            Color reflectionColor = getColorFromReflection(intersectPoint, collisionShape);
+            return combineColorWithReflectionColor(collisionColor, reflectionColor, collisionShape);
+        } else {
+            return collisionColor;
+        }
+    }
+
+    private Color combineColorWithReflectionColor(Color collisionColor, Color reflectionColor, Shape collisionShape) {
+        double reflectAmount = collisionShape.material().reflectivity;
+        double collisionAmount = 1 - reflectAmount;
+        int collisionRed = collisionColor.getRed();
+        int collisionGreen = collisionColor.getGreen();
+        int collisionBlue = collisionColor.getBlue();
+        int reflectionRed = reflectionColor.getRed();
+        int reflectionGreen = reflectionColor.getGreen();
+        int reflectionBlue = reflectionColor.getBlue();
+        int red = (int)((collisionRed * collisionAmount) + (reflectionRed * reflectAmount));
+        int green = (int)((collisionGreen * collisionAmount) + (reflectionGreen * reflectAmount));
+        int blue = (int)((collisionBlue * collisionAmount) + (reflectionBlue * reflectAmount));
+        return new Color(red, green, blue, 255);
     }
 
     private Color getColorFromShapeForBrightness(Shape shape, int brightness) {
@@ -97,13 +125,21 @@ public class SceneRenderer {
         return colorForBrightness;
     }
 
+    private Color getColorFromReflection(Vector intersectPoint, Shape collisionShape) {
+        reflectionDepth += 1;
+        Line intersectLine = new Line(scene.getViewpoint(), intersectPoint);
+        ParametricLine ray = intersectLine.getParametricForm();
+        ParametricLine reflectionRay = ray.reflectAroundNormalAtPoint(intersectPoint, collisionShape.perpendicularVector(intersectPoint));
+        Line reflectionLine = reflectionRay.toLine();
+        return getColorForRay(reflectionLine);
+    }
+
     private int getLambartianBrightness(Shape shape, Vector intersect, LightSource light) {
         double lightBrightness = light.getBrightness();
         Vector directionToLight = new Line(intersect, light.getPosition()).getParametricForm().direction;
         double dotproduct = Vector.dotProduct(Vector.normalize(shape.perpendicularVector(intersect)), Vector.normalize(directionToLight));
         double brightness = shape.material().diffuseCoefficient * lightBrightness * Math.max(0, dotproduct);
         return (int)brightness;
-
     }
 
     private Boolean isObstructed(Line fromIntersectToLight) {
