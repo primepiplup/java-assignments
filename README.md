@@ -31,4 +31,4 @@ Assignment for understanding and working with tree data structures. Created node
 Created a mock user creation system. Uses several operations to ensure correct username and password input. Subtly handles incorrect input.
 
 ### Raytracer
-Implemented a raytracer with a basic Lambertian shader. Uses self-defined Vector class with implemented vector math functions. Only sphere-line intersections have been implemented thus far. The output file location is hard-coded and should be changed to receive an output image file in the desired location.
+Implemented a raytracer with a basic Lambertian shader. Uses self-defined Vector class with implemented vector math functions. Sphere-line intersections have been implemented, as well as Plane-Line intersections. A material class has been implemented which houses the diffusion coefficient for the Lambertian shader, a reflection amount for reflection calculations and a color for color rendering of Shape objects. The output file location is hard-coded and should be changed within the main function within Raytracer.java to receive an output image file in the desired location.
